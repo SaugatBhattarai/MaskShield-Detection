@@ -1,0 +1,88 @@
+<html>
+  <head>
+    <title>Display Poster Image</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../static/css/styles.css" />
+  </head>
+  <body>
+    <div class="main">
+      <div class="row">
+        <div class="header col-lg-12 col-md-12 col-sm-12 text-center">
+          <h1>Movie Extraction System</h1>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="message-top col-lg-12 col-md-12 col-sm-12 text-center">
+            <h3>Please upload movie poster and wait until 5-6 sec.</h3>
+            <span>
+              Sorry, for the delay the model is running in CPU. See the Poster
+              and extracted movie below.</span
+            >
+          </div>
+          <div
+            id="form_box"
+            class="form col-lg-12 col-md-12 col-sm-12 text-center"
+          >
+            <form enctype="multipart/form-data" method="post">
+              <input
+                type="file"
+                id="avatar"
+                name="file1"
+                accept="image/png, image/jpeg"
+              />
+              <input type="submit" />
+            </form>
+          </div>
+        </div>
+        <div class="message text-center">
+          <h3>
+            Sorry, Model is 95% accurate still trying to improve. Try different
+            images.
+          </h3>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <div class="heading-title text-center">
+          <h2>Recently Processed</h2>
+        </div>
+
+        <div class="row">
+          {% for key in movie_details_dict %}
+          <div class="col-lg-3 col-md-3 col-sm-3 text-center">
+            <img
+              width="300px"
+              height="400px"
+              class="{{key}}"
+              src="{{movie_details_dict[key]['poster_image_path']}}"
+              alt=""
+            />
+            {%if movie_details_dict[key]['detection_number'] != 0 %}
+            <img
+              style="margin-top: 20px;"
+              width="300px"
+              height="160px"
+              class="{{key}}"
+              src="{{movie_details_dict[key]['detection_1_path']}}"
+              alt=""
+            />
+            {%if movie_details_dict[key]['detection_number'] == 2 %}
+            <img
+              style="margin-top: 20px;"
+              width="300px"
+              height="100px"
+              class="{{key}}"
+              src="{{movie_details_dict[key]['detection_2_path']}}"
+              alt=""
+            />
+            {% end %} {% end %}
+          </div>
+          {% end %}
+        </div>
+      </div>
+      <div class="footer">
+        <h6>Copyright 2020 Saugat Bhattarai. All Rights Reserved</h6>
+      </div>
+    </div>
+  </body>
+</html>
