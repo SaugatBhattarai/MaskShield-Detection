@@ -4,10 +4,10 @@ try:
 except:
     from . import dbbasic
 
-# Database Config file for movie_poster
-DB_NAME = "movie_poster_db"
-DB_USERNAME = "movie_poster"
-DB_PASSWORD = "movie_poster"
+
+DB_NAME = "covid_maskshield_db"
+DB_USERNAME = "covid_maskshield"
+DB_PASSWORD = "covid_maskshield"
 DB_HOSTNAME = "localhost"
 DB_PORT = 5432
 DB_RACFLAG = False

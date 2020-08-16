@@ -1,22 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""
-Filename           : dbbasic.py
-Author             : Inspiring Lab
-Version            : 1.0
-Date created       : 2017-01-05
-Date last modified : 2017-07-07
-Python Version     : 2.7
-Description        : This is a script for basic database connection to PostgreSQL.
-"""
-
 import sys
 import psycopg2 as pgsql
 from pandas import DataFrame
 
 
 """Class to connect Postgres DB"""
+
 
 class Connect():
     # Constructor
@@ -34,7 +25,8 @@ class Connect():
             conn = pgsql.connect(database=self.dbname, user=self.username, password=self.passwd, host=self.hostname,
                                  port=self.sport)
         except:
-            print ("Unexpected error:", sys.exc_info(), "Function name:", self.__name__)
+            print("Unexpected error:", sys.exc_info(),
+                  "Function name:", self.__name__)
             # return Exception
         else:
             return conn
@@ -44,36 +36,36 @@ class Connect():
 
 
 class Execute():
-    ##Constructor
+    # Constructor
     def __init__(self, con):
         self.con = con
         self.cursor = self.con.cursor()
         # self.statement=statement
 
-    ##execute pgsql statement
+    # execute pgsql statement
     def execute_statement(self, statement):
         try:
             self.cursor.execute(statement)
         except pgsql.Error as e:
             # error,=e.args
-            print ("Code:", e.pgcode)
-            print ("Message:", e.pgerror)
-            print (sys.exc_info(), "Function name:execute_statement")
+            print("Code:", e.pgcode)
+            print("Message:", e.pgerror)
+            print(sys.exc_info(), "Function name:execute_statement")
             self.con.rollback()
         else:
             self.con.commit()
             # self.cursor.close()
             return self.cursor
 
-    ##execute oracle statement using bind vars
+    # execute oracle statement using bind vars
     def execute_statement_bind(self, statement, bindvars):
         try:
             output = self.cursor.execute(statement, bindvars)
         except pgsql.Error as e:
             # error,=e.args
-            print ("Code:", e.pgcode)
-            print ("Message:", e.pgerror)
-            print (sys.exc_info(), "Function name:execute_statement")
+            print("Code:", e.pgcode)
+            print("Message:", e.pgerror)
+            print(sys.exc_info(), "Function name:execute_statement")
             self.con.rollback()
         else:
             self.con.commit()
@@ -86,16 +78,16 @@ class Execute():
             # print a
             funct_args.append(a)
         for k, v in kwargs.iteritems():
-            print ("%s =%s" % (k, v))
+            print("%s =%s" % (k, v))
             if k == "function_name":
                 functname = v
         try:
-            print ("Function name:", functname, "Function Args:", funct_args)
+            print("Function name:", functname, "Function Args:", funct_args)
             # logger.info("Procedure arguments:"+proc_args)
             output = self.cursor.callproc(functname, funct_args)
             # output=output.fetchall()
         except:
-            print ("Function error", sys.exc_info())
+            print("Function error", sys.exc_info())
             return False
         else:
             self.con.commit()
@@ -104,18 +96,18 @@ class Execute():
     def execute_proc(self, *args, **kwargs):
         proc_args = []
         for a in args:
-            print (a)
+            print(a)
             proc_args.append(a)
         for k, v in kwargs.iteritems():
-            print ("%s =%s" % (k, v))
+            print("%s =%s" % (k, v))
             if k == "proc_name":
                 procname = v
         try:
-            print ("Proc Args:", proc_args)
+            print("Proc Args:", proc_args)
             # logger.info("Procedure arguments:"+proc_args)
             self.cursor.callproc(procname, proc_args)
         except:
-            print ("Procedure error")
+            print("Procedure error")
             return False
         else:
             self.con.commit()
@@ -158,7 +150,7 @@ class Dbexecute():
             self.conn.commit()
             self.conn.close()
         except:
-            print ("Unexptected error function:", sys.exc_info())
+            print("Unexptected error function:", sys.exc_info())
             return False
 
         return data
@@ -173,7 +165,7 @@ class Dbexecute():
             self.conn.commit()
             exestat.close()
         except:
-            print ("Unexpected error function insertInfo:", sys.exc_info())
+            print("Unexpected error function insertInfo:", sys.exc_info())
             return False
         else:
             return True
@@ -197,8 +189,8 @@ class Dbexecute():
             self.conn.commit()
             self.conn.close()
         except:
-            print ("Unexptected error function:", sys.exc_info())
-            print ("Returning empty dataframe")
+            print("Unexptected error function:", sys.exc_info())
+            print("Returning empty dataframe")
             return DataFrame()
 
         return df
