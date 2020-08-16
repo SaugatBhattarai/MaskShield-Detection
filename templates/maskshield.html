@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../static/css/styles.css" />
+  </head>
+  <body>
+    <div class="row">
+      <div class="header col-lg-12 col-md-12 col-sm-12 text-center">
+        <h2 style="text-transform: uppercase;">MASKSHIELD DETECTION SYSTEM</h2>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="message-top col-lg-12 col-md-12 col-sm-12 text-center">
+          <h4>Please upload COVID-19 related images.</h4>
+          <span>
+            Note the model is running on CPU. Works best on Single person.</span
+          >
+        </div>
+
+        <div
+          id="form_box"
+          class="form col-lg-12 col-md-12 col-sm-12 text-center"
+        >
+          <form enctype="multipart/form-data" method="post">
+            <input
+              type="file"
+              id="avatar"
+              name="file1"
+              accept="image/png, image/jpeg"
+            />
+            <input type="submit" />
+          </form>
+        </div>
+      </div>
+    </div>
+    <section class="container-fluid">
+      <div class="heading-title text-center">
+        <h4
+          style="
+            color: #7272ff !important;
+            font-weight: 600;
+            text-transform: uppercase;
+          "
+        >
+          Recently Analyzed
+        </h4>
+      </div>
+
+      <div class="row detection_history">
+        {% for key in detection_history %}
+        <div class="col-lg-3 col-md-3 col-sm-3 text-center">
+          <img
+            width="300px"
+            height="400px"
+            class="{{key}}"
+            src="{{detection_history[key]['image_path']}}"
+            alt=""
+          />
+          <div class="row">
+            <div class="detection">
+              <div class="detection-left">
+                <div>
+                  <span
+                    class="detection_{{detection_history[key]['detect_mask']}}"
+                  ></span
+                  ><span class="detection-item">Masks </span>
+                </div>
+                <div>
+                  <span
+                    class="detection_{{detection_history[key]['detect_faceshield']}}"
+                  ></span
+                  ><span class="detection-item">Face Shield </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% end %}
+      </div>
+    </section>
+    <div class="footer">
+      <h6>Copyright 2020 Saugat Bhattarai. All Rights Reserved</h6>
+    </div>
+  </body>
+</html>
