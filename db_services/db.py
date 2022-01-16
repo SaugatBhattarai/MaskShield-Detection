@@ -6,8 +6,8 @@ except:
 
 
 DB_NAME = "covid_maskshield_db"
-DB_USERNAME = "covid_maskshield"
-DB_PASSWORD = "covid_maskshield"
+DB_USERNAME = "*****"
+DB_PASSWORD = "****"
 DB_HOSTNAME = "localhost"
 DB_PORT = 5432
 DB_RACFLAG = False
